@@ -1,12 +1,11 @@
 package jp.co.rakus.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -21,6 +20,7 @@ import jp.co.rakus.repository.HotelSerchRepository;
  *
  */
 @Controller
+@Transactional
 @RequestMapping("/hotel")
 public class HoteSerchlController {
 	@ModelAttribute
@@ -40,8 +40,6 @@ public class HoteSerchlController {
 	 */
 	@RequestMapping("/")
 	public String index(Model model) {
-		List<Hotel> hotels = new ArrayList<>();
-		model.addAttribute("hotels", hotels);
 		return "hotel";
 	}
 
@@ -55,8 +53,8 @@ public class HoteSerchlController {
 	 * @return 出力画面
 	 */
 	@RequestMapping("/serch")
-	public String serch(@Validated HotelSerchForm hotelSerchForm, Model model) {
-		List<Hotel> hotels = repository.findUnderPrice(hotelSerchForm.getPrice());
+	public String serch(HotelSerchForm hotelSerchForm, Model model) {
+		List<Hotel> hotels = repository.findByUnderPrice(hotelSerchForm.getPrice());
 		model.addAttribute("hotels", hotels);
 		return "hotel";
 	}

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,6 +22,7 @@ import jp.co.rakus.repository.ClothesShopRepository;
  *
  */
 @Controller
+@Transactional
 @RequestMapping("/clothesShop")
 public class ClothesShopController {
 	@ModelAttribute
@@ -56,7 +58,7 @@ public class ClothesShopController {
 	 */
 	@RequestMapping("/serch")
 	public String serch(@Validated ClothesShopForm form, Model model) {
-		List<Clothes> chothesList = repository.findClothes(form);
+		List<Clothes> chothesList = repository.findByColorAndGender(form.getColor(),form.getGender());
 		model.addAttribute("clothesList", chothesList);
 		return "forward:/clothesShop/";
 	}

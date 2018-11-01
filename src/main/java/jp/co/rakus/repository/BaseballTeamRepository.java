@@ -8,7 +8,6 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.rakus.domain.BaseballTeam;
 
@@ -19,7 +18,6 @@ import jp.co.rakus.domain.BaseballTeam;
  *
  */
 @Repository
-@Transactional
 public class BaseballTeamRepository {
 	public static final String TABLE_NAME = "baseball_teams";
 	@Autowired

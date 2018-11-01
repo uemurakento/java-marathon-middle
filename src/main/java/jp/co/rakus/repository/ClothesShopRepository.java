@@ -8,9 +8,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import jp.co.rakus.Form.ClothesShopForm;
 import jp.co.rakus.domain.Clothes;
 
 /**
@@ -20,7 +18,6 @@ import jp.co.rakus.domain.Clothes;
  *
  */
 @Repository
-@Transactional
 public class ClothesShopRepository {
 	private static final String TABLE_NAME = "shops";
 	@Autowired
@@ -37,9 +34,9 @@ public class ClothesShopRepository {
 	 * @return 検索された洋服情報を格納したリスト
 	 * 何も検索されなかった場合は空のリストを返す
 	 */
-	public List<Clothes> findClothes(ClothesShopForm form){
+	public List<Clothes> findByColorAndGender(String color,Integer gender){
 		String sql = "SELECT genre,color,price FROM "+TABLE_NAME+" WHERE color=:color AND gender=:gender";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("color", form.getColor()).addValue("gender", form.getGender());
+		SqlParameterSource param = new MapSqlParameterSource().addValue("color",color).addValue("gender",gender);
 		List<Clothes> clothesList = template.query(sql, param,CLOTHES_ROWMAPPER);
 		return clothesList;
 	}

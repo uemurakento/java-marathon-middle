@@ -56,8 +56,6 @@ public class ClothesShopController {
 	 */
 	@RequestMapping("/serch")
 	public String serch(@Validated ClothesShopForm form, Model model) {
-		System.out.println(form.getColor());
-		System.out.println(form.getGender());
 		List<Clothes> chothesList = repository.findClothes(form);
 		model.addAttribute("clothesList", chothesList);
 		return "forward:/clothesShop/";

@@ -56,11 +56,8 @@ public class HoteSerchlController {
 	 */
 	@RequestMapping("/serch")
 	public String serch(@Validated HotelSerchForm hotelSerchForm, Model model) {
-		List<Hotel> hotels = repository.findPrice(hotelSerchForm.getPrice());
+		List<Hotel> hotels = repository.findUnderPrice(hotelSerchForm.getPrice());
 		model.addAttribute("hotels", hotels);
-		for (Hotel hotel : hotels) {
-			System.out.println(hotel.getHotelName());
-		}
 		return "hotel";
 	}
 }

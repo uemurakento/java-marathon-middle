@@ -36,7 +36,7 @@ public class HotelSerchRepository {
 	 *            検索する金額
 	 * @return 検索されたホテルをリストに格納して返す 何も検索されなかった場合からのリストを返す
 	 */
-	public List<Hotel> findPrice(Integer price) {
+	public List<Hotel> findUnderPrice(Integer price) {
 		String sql = "SELECT hotel_name,nearest_station,price FROM " + TABLE_NAME + " WHERE price<=:price;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("price", price);
 		List<Hotel> hotels = template.query(sql, param, HOTEL_ROWMAPPER);
